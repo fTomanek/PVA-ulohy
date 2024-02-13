@@ -1,0 +1,39 @@
+def is_palindrome(num_str):
+    return num_str == num_str[::-1] #rovná se samo sobě pospátku?
+
+def nextPalindrome(From, Radix, Next):
+    #Kontrola, jestli je správná soustava
+    if not (2 <= Radix <= 36):  
+        return 0  
+
+    
+
+    while True:
+        From += 1
+
+        #převod do správné soustavy
+        num_str = ''
+        temp_num = From
+        while temp_num > 0:
+            remainder = temp_num % Radix
+            num_str = str(remainder) + num_str
+            temp_num //= Radix
+
+        #Je palindrom?
+        if is_palindrome(num_str):
+            Next[0] = From
+            return 1  
+
+
+
+
+# Příklad použití
+From = 16
+Radix = 2 
+Next = [0]
+success = nextPalindrome(From, Radix, Next)
+
+if success:
+    print(f"Nejbližší větší palindrom než {From} v soustavě {Radix} je {Next[0]}.")
+else:
+    print("Chyba při hledání palindromu.")
